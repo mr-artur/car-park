@@ -26,7 +26,7 @@ public class CarPark {
                 .reduce(0, (acc, price) -> acc + price);
     }
 
-    public List<Car> findBySpeed(int bottom, int top) {
+    public List<Car> getBySpeedRange(int bottom, int top) {
         Predicate<Car> criteria = car -> (car.getMaxSpeed() >= bottom)
                 && (car.getMaxSpeed() <= top);
         return cars.stream()

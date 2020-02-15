@@ -9,10 +9,10 @@ import java.util.StringJoiner;
 public class OutputPrinter {
 
     public static final int NUMBER_LENGTH = 2;
-    public static final int MODEL_LENGTH = 16;
-    public static final int FUEL_CONSUMPTION_LENGTH = 6;
-    public static final int PRICE_LENGTH = 7;
-    public static final int MAX_SPEED_LENGTH = 9;
+    public static final int MODEL_LENGTH = 20;
+    public static final int FUEL_CONSUMPTION_LENGTH = 7;
+    public static final int PRICE_LENGTH = 8;
+    public static final int MAX_SPEED_LENGTH = 15;
     public static final int COMFORT_LEVEL_LENGTH = 13;
     public static final int DELIMITER_LENGTH = 1;
     public static final int LINE_LENGTH = DELIMITER_LENGTH + NUMBER_LENGTH
@@ -49,14 +49,18 @@ public class OutputPrinter {
         return builder.toString();
     }
 
-    public void printCarsTable(List<Car> cars) {
+    public void printTotalPrice(int price) {
+        view.printTotalPrice(price);
+    }
+
+    public void printCars(List<Car> cars) {
         printHeader();
         printBody(cars);
     }
 
     private void printHeader() {
-        String header = String.format(FORMAT, "№", "Model", "FC l/h", "Price",
-                "Max Speed", "Comfort Level");
+        String header = String.format(FORMAT, "№", "Model", "FC, l/h", "Price, $",
+                "Max Speed, km/h", "Comfort Level");
         view.printMessage(LINE_DELIMITER);
         view.printMessage(header);
         view.printMessage(LINE_DELIMITER);

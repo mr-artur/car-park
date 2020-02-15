@@ -28,7 +28,7 @@ public final class CarFactory {
                 car = new BusinessCar(model, fuelConsumption, price, maxSpeed);
                 break;
             default:
-                throw new IllegalArgumentException("Wrong car type" + type);
+                throw new IllegalArgumentException("Wrong car type : " + type);
         }
         return car;
     }

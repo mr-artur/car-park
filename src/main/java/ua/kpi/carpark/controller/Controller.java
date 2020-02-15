@@ -1,26 +1,46 @@
 package ua.kpi.carpark.controller;
 
 import ua.kpi.carpark.model.CarPark;
-import ua.kpi.carpark.model.car.BusinessCar;
-import ua.kpi.carpark.model.car.ComfortCar;
-import ua.kpi.carpark.model.car.EconomCar;
 import ua.kpi.carpark.view.View;
+
+import java.util.Scanner;
 
 public class Controller {
 
-    private CarPark carPark;
-    private OutputPrinter printer;
+    private final CarPark carPark;
+    private final InputScanner inputScanner;
+    private final OutputPrinter printer;
+    private final CarParkFiller filler;
+    private final Scanner scanner = new Scanner(System.in);
 
     public Controller(CarPark carPark, View view) {
         this.carPark = carPark;
+        this.inputScanner = new InputScanner(view);
         this.printer = new OutputPrinter(view);
+        this.filler = new CarParkFiller();
+        filler.fillCarPark(carPark);
     }
 
     public void start() {
-        carPark.addCar(new BusinessCar("KIA", 2.3, 25000, 135));
-        carPark.addCar(new ComfortCar("Mitsubishi", 3.5, 10000, 500));
-        carPark.addCar(new EconomCar("Economy shit", 2.2, 4000, 100));
-        printer.printCarsTable(carPark.getCars());
-        printer.printCarsTable(carPark.getSortedByConsumption());
+        int operation;
+
+        do {
+            operation = inputScanner.selectOperation(scanner);
+            executeOperation(operation);
+        } while (operation != 0);
+    }
+
+    private void executeOperation(int operation) {
+        if (operation == 1) {
+            printer.printCars(carPark.getCars());
+        } else if (operation == 2) {
+            int bottom = inputScanner.inputBottomLimit(scanner);
+            int top = inputScanner.inputTopLimit(scanner, bottom);
+            printer.printCars(carPark.getBySpeedRange(bottom, top));
+        } else if (operation == 3) {
+            printer.printCars(carPark.getSortedByConsumption());
+        } else if (operation == 4) {
+            printer.printTotalPrice(carPark.getTotalPrice());
+        }
     }
 }
