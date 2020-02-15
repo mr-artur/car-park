@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CarPark {
 
-    private List<Car> cars = new ArrayList<>();
+    private final List<Car> cars = new ArrayList<>();
 
     public void addCar(Car car) {
         cars.add(car);
