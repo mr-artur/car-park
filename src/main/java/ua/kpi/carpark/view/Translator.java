@@ -31,7 +31,7 @@ public class Translator {
         return bundle.getString(MENU_PREFIX + key);
     }
 
-    public String getHeaderMessage(String key) {
+    public String getHeaderField(String key) {
         return bundle.getString(HEADER_PREFIX + key);
     }
 

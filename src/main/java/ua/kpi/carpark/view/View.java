@@ -14,8 +14,8 @@ public class View {
         return translator.getLength(field);
     }
 
-    public String getHeaderMessage(String key) {
-        return translator.getHeaderMessage(key);
+    public String getHeaderField(String key) {
+        return translator.getHeaderField(key);
     }
 
     public void printMenu() {

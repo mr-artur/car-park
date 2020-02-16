@@ -3,9 +3,9 @@ package ua.kpi.carpark.controller;
 import ua.kpi.carpark.model.car.Car;
 import ua.kpi.carpark.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class OutputPrinter {
 
@@ -17,68 +17,23 @@ public class OutputPrinter {
         this.view = view;
     }
 
-    private int calculateLineLength() {
-        List<Integer> lengths = new ArrayList<>();
-        int lineLength = 0;
-        lengths.add(view.getLength("number"));
-        lengths.add(view.getLength("model"));
-        lengths.add(view.getLength("consumption"));
-        lengths.add(view.getLength("price"));
-        lengths.add(view.getLength("maxSpeed"));
-        lengths.add(view.getLength("comfortLevel"));
-        for (int length : lengths) {
-            lineLength += length;
-        }
-        lineLength += lengths.size() + 1;
-        return lineLength;
-    }
-
-    private void buildFormat() {
-        format = new StringJoiner("|", "|", "|")
-                .add(formatWithLength("number"))
-                .add(formatWithLength("model"))
-                .add(formatWithLength("consumption"))
-                .add(formatWithLength("price"))
-                .add(formatWithLength("maxSpeed"))
-                .add(formatWithLength("comfortLevel"))
-                .toString();
-    }
-
-    private void buildLineDelimiter() {
-        int length = calculateLineLength();
-        lineDelimiter = buildStringOfCharCopies(length, '-');
-    }
-
-    private String formatWithLength(String field) {
-        return String.format("%%-%ds", view.getLength(field));
-    }
-
-    private static String buildStringOfCharCopies(int repeats, char symbol) {
-        StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < repeats; i++) {
-            builder.append(symbol);
-        }
-        return builder.toString();
-    }
-
-    public void printTotalPrice(int price) {
-        view.printTotalPrice(price);
-    }
-
-    public void printSortedCars(List<Car> cars) {
-        view.printMessage(view.getLabel("sorted"));
+    public void printAllCars(List<Car> cars) {
+        view.printMessage(view.getLabel(Constants.ALL_LABEL_KEY));
         printCars(cars);
     }
 
-    public void printAllCars(List<Car> cars) {
-        view.printMessage(view.getLabel("all"));
+    public void printSortedCars(List<Car> cars) {
+        view.printMessage(view.getLabel(Constants.SORTED_LABEL_KEY));
         printCars(cars);
     }
 
     public void printCarsByRange(List<Car> cars) {
-        view.printMessage(view.getLabel("filtered"));
+        view.printMessage(view.getLabel(Constants.FILTERED_LABEL_KEY));
         printCars(cars);
+    }
+
+    public void printTotalPrice(int price) {
+        view.printTotalPrice(price);
     }
 
     private void printCars(List<Car> cars) {
@@ -92,14 +47,62 @@ public class OutputPrinter {
         buildLineDelimiter();
     }
 
+    private void buildFormat() {
+        StringJoiner joiner = new StringJoiner(Constants.VERTICAL_BORDER,
+                Constants.VERTICAL_BORDER, Constants.VERTICAL_BORDER);
+
+        for (String field : Constants.fields) {
+            joiner.add(formatWithLength(field));
+        }
+        format = joiner.toString();
+    }
+
+    private String formatWithLength(String field) {
+        return String.format(Constants.CUSTOM_LENGTH_FORMAT,
+                view.getLength(field));
+    }
+
+    private void buildLineDelimiter() {
+        int length = calculateLineLength();
+
+        lineDelimiter = buildStringOfCharCopies(length,
+                Constants.HORIZONTAL_BORDER);
+    }
+
+    private int calculateLineLength() {
+        int lineLength = 0;
+
+        for (String field : Constants.fields) {
+            lineLength += view.getLength(field);
+        }
+        lineLength += Constants.fields.length + 1;
+        return lineLength;
+    }
+
+    private static String buildStringOfCharCopies(int repeats, char symbol) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < repeats; i++) {
+            builder.append(symbol);
+        }
+        return builder.toString();
+    }
+
     private void printHeader() {
-        String header = String.format(format,
-                view.getHeaderMessage("number"),
-                view.getHeaderMessage("model"),
-                view.getHeaderMessage("consumption"),
-                view.getHeaderMessage("price"),
-                view.getHeaderMessage("maxSpeed"),
-                view.getHeaderMessage("comfortLevel"));
+        String header = buildHeader();
+        printHeaderWithDelimiters(header);
+    }
+
+    private String buildHeader() {
+        List<String> fields = List.of(Constants.fields)
+                .stream()
+                .map(field -> view.getHeaderField(field))
+                .collect(Collectors.toList());
+        return String.format(format, fields.get(0), fields.get(1),
+                fields.get(2), fields.get(3), fields.get(4), fields.get(5));
+    }
+
+    private void printHeaderWithDelimiters(String header) {
         view.printMessage(lineDelimiter);
         view.printMessage(header);
         view.printMessage(lineDelimiter);
