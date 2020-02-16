@@ -116,7 +116,6 @@ public class OutputPrinter {
         view.printMessage(String.format(format,
                 Integer.valueOf(number).toString(), car.getModel(),
                 car.getFuelConsumption(), car.getPrice(), car.getMaxSpeed(),
-                car.getComfortLevel()));
-        view.printMessage(lineDelimiter);
+                car.getComfortLevel()), lineDelimiter);
     }
 }
