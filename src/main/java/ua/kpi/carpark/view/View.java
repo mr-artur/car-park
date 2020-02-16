@@ -1,7 +1,5 @@
 package ua.kpi.carpark.view;
 
-import java.util.List;
-
 public class View {
 
     private Translator translator = new Translator();
@@ -10,8 +8,8 @@ public class View {
         translator.setLanguage(language);
     }
 
-    public int getLength(String field) {
-        return translator.getLength(field);
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     public String getHeaderField(String key) {
@@ -19,14 +17,9 @@ public class View {
     }
 
     public void printMenu() {
-        List.of(
-                getMenuMessage("menuHeader"),
-                getMenuMessage("showCarParkTable"),
-                getMenuMessage("showSorted"),
-                getMenuMessage("showFiltered"),
-                getMenuMessage("showTotalPrice"),
-                getMenuMessage("exit")
-        ).forEach(this::printMessage);
+        for (String key : Constants.menuKeys) {
+            printMessage(getMenuMessage(key));
+        }
     }
 
     private String getMenuMessage(String key) {
@@ -34,28 +27,24 @@ public class View {
     }
 
     public void printInputMessage() {
-        printMessage(translator.getInputMessage("inputOperation"));
+        printMessage(translator.getInputMessage(Constants.INPUT_OPERATION_KEY));
     }
 
     public void printWrongInputMessage() {
-        printMessage(translator.getInputMessage("wrongInput"));
+        printMessage(translator.getInputMessage(Constants.WRONG_INPUT_KEY));
     }
 
     public void printInputTopLimitMessage() {
-        printMessage(translator.getInputMessage("topLimit"));
+        printMessage(translator.getInputMessage(Constants.TOP_LIMIT_KEY));
     }
 
     public void printWrongTopLimitMessage(int bottomLimit) {
-        printMessage(
-                String.format(
-                        translator.getInputMessage("wrongTopLimit"),
-                        bottomLimit
-                )
-        );
+        printMessage(String.format(translator.getInputMessage(
+                Constants.WRONG_TOP_LIMIT_KEY), bottomLimit));
     }
 
     public void printInputBottomLimitMessage() {
-        printMessage(translator.getInputMessage("bottomLimit"));
+        printMessage(translator.getInputMessage(Constants.BOTTOM_LIMIT_KEY));
     }
 
     public String getLabel(String key) {
@@ -63,10 +52,10 @@ public class View {
     }
 
     public void printTotalPrice(int price) {
-        printMessage(String.format(getLabel("totalPrice"), price));
+        printMessage(String.format(getLabel(Constants.TOTAL_PRICE_KEY), price));
     }
 
-    public void printMessage(String message) {
-        System.out.println(message);
+    public int getLength(String field) {
+        return translator.getLength(field);
     }
 }
