@@ -51,6 +51,7 @@ public class InputScanner {
             topLimit = inputLimit(scanner);
             if (topLimit < bottomLimit) {
                 view.printWrongTopLimitMessage(bottomLimit);
+                view.printInputTopLimitMessage();
             }
         } while (topLimit < bottomLimit);
         return topLimit;

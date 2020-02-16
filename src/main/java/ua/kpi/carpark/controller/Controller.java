@@ -42,17 +42,17 @@ public class Controller {
     }
 
     private void printAllCars() {
-        printer.printCars(carPark.getCars());
+        printer.printAllCars(carPark.getCars());
     }
 
     private void printCarsByRange() {
         int bottom = inputScanner.inputBottomLimit(scanner);
         int top = inputScanner.inputTopLimit(scanner, bottom);
-        printer.printCars(carPark.getBySpeedRange(bottom, top));
+        printer.printCarsByRange(carPark.getBySpeedRange(bottom, top));
     }
 
     private void printSortedCars() {
-        printer.printCars(carPark.getSortedByConsumption());
+        printer.printSortedCars(carPark.getSortedByConsumption());
     }
 
     private void printTotalPrice() {

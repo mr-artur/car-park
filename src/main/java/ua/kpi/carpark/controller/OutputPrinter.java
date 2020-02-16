@@ -66,7 +66,22 @@ public class OutputPrinter {
         view.printTotalPrice(price);
     }
 
-    public void printCars(List<Car> cars) {
+    public void printSortedCars(List<Car> cars) {
+        view.printMessage(view.getLabel("sorted"));
+        printCars(cars);
+    }
+
+    public void printAllCars(List<Car> cars) {
+        view.printMessage(view.getLabel("all"));
+        printCars(cars);
+    }
+
+    public void printCarsByRange(List<Car> cars) {
+        view.printMessage(view.getLabel("filtered"));
+        printCars(cars);
+    }
+
+    private void printCars(List<Car> cars) {
         updateFormat();
         printHeader();
         printBody(cars);

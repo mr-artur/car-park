@@ -1,4 +1,4 @@
 package ua.kpi.carpark.controller;
 
-public class ConstantsContainer {
+public class Constants {
 }
