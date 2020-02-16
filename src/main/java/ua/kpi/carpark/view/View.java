@@ -52,8 +52,8 @@ public class View {
     }
 
     public void printWrongTopLimitMessage(int bottomLimit) {
-        printMessage(String.format(translator.getInputMessage(
-                Constants.WRONG_TOP_LIMIT_KEY), bottomLimit));
+        String format = translator.getInputMessage(Constants.WRONG_TOP_LIMIT_KEY);
+        printMessage(String.format(format, bottomLimit));
     }
 
     public void printInputBottomLimitMessage() {
@@ -65,7 +65,8 @@ public class View {
     }
 
     public void printTotalPrice(int price) {
-        printMessage(String.format(getLabel(Constants.TOTAL_PRICE_KEY), price));
+        String format = getLabel(Constants.TOTAL_PRICE_KEY);
+        printMessage(String.format(format, price));
     }
 
     public int getLength(String field) {
