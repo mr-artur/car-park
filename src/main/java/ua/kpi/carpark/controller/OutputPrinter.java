@@ -11,7 +11,7 @@ public class OutputPrinter {
 
     private String format;
     private String lineDelimiter;
-    private View view;
+    private final View view;
 
     public OutputPrinter(View view) {
         this.view = view;
@@ -103,9 +103,7 @@ public class OutputPrinter {
     }
 
     private void printHeaderWithDelimiters(String header) {
-        view.printMessage(lineDelimiter);
-        view.printMessage(header);
-        view.printMessage(lineDelimiter);
+        view.printMessage(lineDelimiter, header, lineDelimiter);
     }
 
     private void printBody(List<Car> cars) {

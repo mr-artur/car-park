@@ -8,7 +8,7 @@ public class Translator {
     private ResourceBundle bundle;
 
     public Translator() {
-        setLanguage(Constants.DEFAULT_LANGUAGE);
+        setLanguage(Constants.RESOURCE_NAME);
     }
 
     public void setLanguage(String language) {

@@ -12,18 +12,24 @@ public class InputScanner {
         this.view = view;
     }
 
-    public int selectOperation(Scanner scanner) {
-        int operation;
+    public int selectLanguage(Scanner scanner) {
+        int languageCode;
 
-        view.printMenu();
-        view.printInputMessage();
+        view.printLanguageMenu();
+        view.printInputMessage(Constants.MIN_LANGUAGE_CODE,
+                Constants.MAX_LANGUAGE_CODE);
         do {
-            operation = inputIntValue(scanner);
-            if (isIncorrect(operation)) {
+            languageCode = inputIntValue(scanner);
+            if (isIncorrectLanguageCode(languageCode)) {
                 view.printWrongInputMessage();
             }
-        } while (isIncorrect(operation));
-        return operation;
+        } while (isIncorrectLanguageCode(languageCode));
+        return languageCode;
+    }
+
+    private boolean isIncorrectLanguageCode(int languageCode) {
+        return (languageCode < Constants.MIN_LANGUAGE_CODE)
+                || (languageCode > Constants.MAX_LANGUAGE_CODE);
     }
 
     private int inputIntValue(Scanner scanner) {
@@ -32,6 +38,21 @@ public class InputScanner {
             scanner.next();
         }
         return scanner.nextInt();
+    }
+
+    public int selectOperation(Scanner scanner) {
+        int operation;
+
+        view.printMenu();
+        view.printInputMessage(Constants.MIN_OPERATION_CODE,
+                Constants.MAX_OPERATION_CODE);
+        do {
+            operation = inputIntValue(scanner);
+            if (isIncorrect(operation)) {
+                view.printWrongInputMessage();
+            }
+        } while (isIncorrect(operation));
+        return operation;
     }
 
     private boolean isIncorrect(int operation) {

@@ -2,7 +2,10 @@ package ua.kpi.carpark.view;
 
 public class Constants {
 
-    public static final String DEFAULT_LANGUAGE = "en";
+    public static final String CHOOSE_LANGUAGE_MESSAGE = "Choose language :";
+    public static final String CHOOSE_ENGLISH = "- 1. English";
+    public static final String CHOOSE_RUSSIAN = "- 2. Русский";
+
     public static final String RESOURCE_NAME = "messages";
     public static final String INPUT_PREFIX = "input.";
     public static final String MENU_PREFIX = INPUT_PREFIX + "menu.";
@@ -24,6 +27,12 @@ public class Constants {
     public static final String SHOW_FILTERED_KEY = "showFiltered";
     public static final String SHOW_TOTAL_PRICE_KEY = "showTotalPrice";
     public static final String EXIT_KEY = "exit";
+
+    public static final String[] languageMenu = {
+            CHOOSE_LANGUAGE_MESSAGE,
+            CHOOSE_ENGLISH,
+            CHOOSE_RUSSIAN
+    };
 
     public static final String[] menuKeys = {
             MENU_HEADER_KEY,

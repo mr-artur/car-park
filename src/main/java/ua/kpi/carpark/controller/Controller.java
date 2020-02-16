@@ -10,17 +10,37 @@ public class Controller {
     private final CarPark carPark;
     private final InputScanner inputScanner;
     private final OutputPrinter printer;
+    private final View view;
     private final CarParkFiller filler = new CarParkFiller();
     private final Scanner scanner = new Scanner(System.in);
 
     public Controller(CarPark carPark, View view) {
         this.carPark = carPark;
+        this.view = view;
         inputScanner = new InputScanner(view);
         printer = new OutputPrinter(view);
         filler.fillCarPark(carPark);
     }
 
     public void start() {
+        selectLanguage();
+        executeOperations();
+    }
+
+    private void selectLanguage() {
+        int languageCode = inputScanner.selectLanguage(scanner);
+        setLanguage(languageCode);
+    }
+
+    private void setLanguage(int languageCode) {
+        if (languageCode == Constants.ENGLISH_CODE) {
+            view.setLanguage(Constants.ENGLISH);
+        } else if (languageCode == Constants.RUSSIAN_CODE) {
+            view.setLanguage(Constants.RUSSIAN);
+        }
+    }
+
+    private void executeOperations() {
         int operation;
 
         do {

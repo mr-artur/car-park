@@ -2,13 +2,20 @@ package ua.kpi.carpark.controller;
 
 public class Constants {
 
+    public static final int ENGLISH_CODE = 1;
+    public static final int RUSSIAN_CODE = 2;
+    public static final int MIN_LANGUAGE_CODE = ENGLISH_CODE;
+    public static final int MAX_LANGUAGE_CODE = RUSSIAN_CODE;
     public static final int EXIT_CODE = 0;
     public static final int FIRST_OPERATION_CODE = 1;
     public static final int SECOND_OPERATION_CODE = 2;
     public static final int THIRD_OPERATION_CODE = 3;
     public static final int FOURTH_OPERATION_CODE = 4;
-    public static final int MIN_OPERATION_CODE = FIRST_OPERATION_CODE;
+    public static final int MIN_OPERATION_CODE = EXIT_CODE;
     public static final int MAX_OPERATION_CODE = FOURTH_OPERATION_CODE;
+
+    public static final String ENGLISH = "en";
+    public static final String RUSSIAN = "ru";
 
     public static final char HORIZONTAL_BORDER = '-';
     public static final String VERTICAL_BORDER = "|";

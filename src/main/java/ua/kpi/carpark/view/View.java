@@ -8,12 +8,20 @@ public class View {
         translator.setLanguage(language);
     }
 
-    public void printMessage(String message) {
-        System.out.println(message);
+    public void printMessage(String... messages) {
+        for (String message : messages) {
+            printLine(message);
+        }
     }
 
-    public String getHeaderField(String key) {
-        return translator.getHeaderField(key);
+    private void printLine(String line) {
+        System.out.println(line);
+    }
+
+    public void printLanguageMenu() {
+        for (String message : Constants.languageMenu) {
+            printMessage(message);
+        }
     }
 
     public void printMenu() {
@@ -26,8 +34,13 @@ public class View {
         return translator.getMenuMessage(key);
     }
 
-    public void printInputMessage() {
-        printMessage(translator.getInputMessage(Constants.INPUT_OPERATION_KEY));
+    public String getHeaderField(String key) {
+        return translator.getHeaderField(key);
+    }
+
+    public void printInputMessage(int bottom, int top) {
+        String format = translator.getInputMessage(Constants.INPUT_OPERATION_KEY);
+        printMessage(String.format(format, bottom, top));
     }
 
     public void printWrongInputMessage() {
