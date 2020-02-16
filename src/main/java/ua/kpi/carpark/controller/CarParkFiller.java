@@ -12,9 +12,9 @@ public class CarParkFiller {
     private final CarFactory factory = CarFactory.getInstance();
 
     public void fillCarPark(CarPark park) {
-        List<String> lines = reader.readFromLine("cars.csv", 2);
+        List<String> lines = reader.readFromLine(Constants.DATA_FILE_NAME, 2);
         lines.stream()
-                .map(line -> line.split(","))
+                .map(line -> line.split(Constants.DATA_DELIMITER))
                 .map(this::createCar)
                 .forEach(park::addCar);
     }

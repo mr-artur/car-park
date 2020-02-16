@@ -26,17 +26,17 @@ public class Controller {
         do {
             operation = inputScanner.selectOperation(scanner);
             executeOperation(operation);
-        } while (operation != 0);
+        } while (operation != Constants.EXIT_CODE);
     }
 
     private void executeOperation(int operation) {
-        if (operation == 1) {
+        if (operation == Constants.FIRST_OPERATION_CODE) {
             printAllCars();
-        } else if (operation == 2) {
+        } else if (operation == Constants.SECOND_OPERATION_CODE) {
             printSortedCars();
-        } else if (operation == 3) {
+        } else if (operation == Constants.THIRD_OPERATION_CODE) {
             printCarsByRange();
-        } else if (operation == 4) {
+        } else if (operation == Constants.FOURTH_OPERATION_CODE) {
             printTotalPrice();
         }
     }

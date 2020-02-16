@@ -35,7 +35,8 @@ public class InputScanner {
     }
 
     private boolean isIncorrect(int operation) {
-        return (operation < 0) || (operation > 4);
+        return (operation < Constants.MIN_OPERATION_CODE)
+                || (operation > Constants.MAX_OPERATION_CODE);
     }
 
     public int inputBottomLimit(Scanner scanner) {

@@ -10,12 +10,16 @@ public class FileReader {
 
     public List<String> readFile(String fileName) {
         if (fileName == null) {
-            throw new IllegalArgumentException("fileName should not be null");
+            throw new IllegalArgumentException(Constants.FILENAME_IS_NULL);
         }
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        InputStream inputStream = getClass()
+                .getClassLoader()
+                .getResourceAsStream(fileName);
 
         if (inputStream == null) {
-            throw new IllegalArgumentException(String.format("File '%s' was not found", fileName));
+            throw new IllegalArgumentException(
+                    String.format(Constants.INPUT_STREAM_IS_NULL, fileName)
+            );
         }
         return new BufferedReader(new InputStreamReader(inputStream))
                 .lines()
