@@ -3,41 +3,54 @@ package ua.kpi.carpark.controller;
 import ua.kpi.carpark.model.car.Car;
 import ua.kpi.carpark.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class OutputPrinter {
 
-    public static final int NUMBER_LENGTH = 2;
-    public static final int MODEL_LENGTH = 20;
-    public static final int FUEL_CONSUMPTION_LENGTH = 7;
-    public static final int PRICE_LENGTH = 8;
-    public static final int MAX_SPEED_LENGTH = 15;
-    public static final int COMFORT_LEVEL_LENGTH = 13;
-    public static final int DELIMITER_LENGTH = 1;
-    public static final int LINE_LENGTH = DELIMITER_LENGTH + NUMBER_LENGTH
-            + DELIMITER_LENGTH + MODEL_LENGTH + DELIMITER_LENGTH
-            + FUEL_CONSUMPTION_LENGTH + DELIMITER_LENGTH + PRICE_LENGTH
-            + DELIMITER_LENGTH + MAX_SPEED_LENGTH + DELIMITER_LENGTH
-            + COMFORT_LEVEL_LENGTH + DELIMITER_LENGTH;
-    public static final String FORMAT;
-    public static final String LINE_DELIMITER;
+    private String format;
+    private String lineDelimiter;
     private View view;
-
-    static {
-        FORMAT = new StringJoiner("|", "|", "|")
-                .add(String.format("%%-%ds", NUMBER_LENGTH))
-                .add(String.format("%%-%ds", MODEL_LENGTH))
-                .add(String.format("%%-%ds", FUEL_CONSUMPTION_LENGTH))
-                .add(String.format("%%-%ds", PRICE_LENGTH))
-                .add(String.format("%%-%ds", MAX_SPEED_LENGTH))
-                .add(String.format("%%-%ds", COMFORT_LEVEL_LENGTH))
-                .toString();
-        LINE_DELIMITER = buildStringOfCharCopies(LINE_LENGTH, '-');
-    }
 
     public OutputPrinter(View view) {
         this.view = view;
+    }
+
+    private int calculateLineLength() {
+        List<Integer> lengths = new ArrayList<>();
+        int lineLength = 0;
+        lengths.add(view.getLength("number"));
+        lengths.add(view.getLength("model"));
+        lengths.add(view.getLength("consumption"));
+        lengths.add(view.getLength("price"));
+        lengths.add(view.getLength("maxSpeed"));
+        lengths.add(view.getLength("comfortLevel"));
+        for (int length : lengths) {
+            lineLength += length;
+        }
+        lineLength += lengths.size() + 1;
+        return lineLength;
+    }
+
+    private void buildFormat() {
+        format = new StringJoiner("|", "|", "|")
+                .add(formatWithLength("number"))
+                .add(formatWithLength("model"))
+                .add(formatWithLength("consumption"))
+                .add(formatWithLength("price"))
+                .add(formatWithLength("maxSpeed"))
+                .add(formatWithLength("comfortLevel"))
+                .toString();
+    }
+
+    private void buildLineDelimiter() {
+        int length = calculateLineLength();
+        lineDelimiter = buildStringOfCharCopies(length, '-');
+    }
+
+    private String formatWithLength(String field) {
+        return String.format("%%-%ds", view.getLength(field));
     }
 
     private static String buildStringOfCharCopies(int repeats, char symbol) {
@@ -54,16 +67,27 @@ public class OutputPrinter {
     }
 
     public void printCars(List<Car> cars) {
+        updateFormat();
         printHeader();
         printBody(cars);
     }
 
+    private void updateFormat() {
+        buildFormat();
+        buildLineDelimiter();
+    }
+
     private void printHeader() {
-        String header = String.format(FORMAT, "№", "Model", "FC, l/h", "Price, $",
-                "Max Speed, km/h", "Comfort Level");
-        view.printMessage(LINE_DELIMITER);
+        String header = String.format(format,
+                view.getHeaderMessage("number"),
+                view.getHeaderMessage("model"),
+                view.getHeaderMessage("consumption"),
+                view.getHeaderMessage("price"),
+                view.getHeaderMessage("maxSpeed"),
+                view.getHeaderMessage("comfortLevel"));
+        view.printMessage(lineDelimiter);
         view.printMessage(header);
-        view.printMessage(LINE_DELIMITER);
+        view.printMessage(lineDelimiter);
     }
 
     private void printBody(List<Car> cars) {
@@ -73,10 +97,10 @@ public class OutputPrinter {
     }
 
     private void printLine(int number, Car car) {
-        view.printMessage(String.format(FORMAT,
+        view.printMessage(String.format(format,
                 Integer.valueOf(number).toString(), car.getModel(),
                 car.getFuelConsumption(), car.getPrice(), car.getMaxSpeed(),
                 car.getComfortLevel()));
-        view.printMessage(LINE_DELIMITER);
+        view.printMessage(lineDelimiter);
     }
 }

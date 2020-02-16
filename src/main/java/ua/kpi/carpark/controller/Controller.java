@@ -10,14 +10,13 @@ public class Controller {
     private final CarPark carPark;
     private final InputScanner inputScanner;
     private final OutputPrinter printer;
-    private final CarParkFiller filler;
+    private final CarParkFiller filler = new CarParkFiller();
     private final Scanner scanner = new Scanner(System.in);
 
     public Controller(CarPark carPark, View view) {
         this.carPark = carPark;
-        this.inputScanner = new InputScanner(view);
-        this.printer = new OutputPrinter(view);
-        this.filler = new CarParkFiller();
+        inputScanner = new InputScanner(view);
+        printer = new OutputPrinter(view);
         filler.fillCarPark(carPark);
     }
 
@@ -32,15 +31,31 @@ public class Controller {
 
     private void executeOperation(int operation) {
         if (operation == 1) {
-            printer.printCars(carPark.getCars());
+            printAllCars();
         } else if (operation == 2) {
-            int bottom = inputScanner.inputBottomLimit(scanner);
-            int top = inputScanner.inputTopLimit(scanner, bottom);
-            printer.printCars(carPark.getBySpeedRange(bottom, top));
+            printSortedCars();
         } else if (operation == 3) {
-            printer.printCars(carPark.getSortedByConsumption());
+            printCarsByRange();
         } else if (operation == 4) {
-            printer.printTotalPrice(carPark.getTotalPrice());
+            printTotalPrice();
         }
+    }
+
+    private void printAllCars() {
+        printer.printCars(carPark.getCars());
+    }
+
+    private void printCarsByRange() {
+        int bottom = inputScanner.inputBottomLimit(scanner);
+        int top = inputScanner.inputTopLimit(scanner, bottom);
+        printer.printCars(carPark.getBySpeedRange(bottom, top));
+    }
+
+    private void printSortedCars() {
+        printer.printCars(carPark.getSortedByConsumption());
+    }
+
+    private void printTotalPrice() {
+        printer.printTotalPrice(carPark.getTotalPrice());
     }
 }

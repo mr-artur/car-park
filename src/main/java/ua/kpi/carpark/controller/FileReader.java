@@ -22,4 +22,9 @@ public class FileReader {
                 .parallel()
                 .collect(Collectors.toList());
     }
+
+    public List<String> readFromLine(String fileName, int fromLine) {
+        List<String> allLines = readFile(fileName);
+        return allLines.subList(fromLine - 1, allLines.size());
+    }
 }

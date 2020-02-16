@@ -1,39 +1,69 @@
 package ua.kpi.carpark.view;
 
-import java.util.Locale;
+import java.util.List;
 
 public class View {
 
-    public void changeLanguage(String language) {
-        Locale.setDefault(new Locale(language));
+    private Translator translator = new Translator();
+
+    public void setLanguage(String language) {
+        translator.setLanguage(language);
+    }
+
+    public int getLength(String field) {
+        return translator.getLength(field);
+    }
+
+    public String getHeaderMessage(String key) {
+        return translator.getHeaderMessage(key);
     }
 
     public void printMenu() {
-        printMessage("It is menu : 0, 1, 2, 3, 4");
+        List.of(
+                getMenuMessage("menuHeader"),
+                getMenuMessage("showCarParkTable"),
+                getMenuMessage("showSorted"),
+                getMenuMessage("showFiltered"),
+                getMenuMessage("showTotalPrice"),
+                getMenuMessage("exit")
+        ).forEach(this::printMessage);
+    }
+
+    private String getMenuMessage(String key) {
+        return translator.getMenuMessage(key);
     }
 
     public void printInputMessage() {
-        printMessage("Input value :");
+        printMessage(translator.getInputMessage("inputOperation"));
     }
 
     public void printWrongInputMessage() {
-        printMessage("Wrong Input! Try again");
+        printMessage(translator.getInputMessage("wrongInput"));
     }
 
     public void printInputTopLimitMessage() {
-        printMessage("Input top limit :");
+        printMessage(translator.getInputMessage("topLimit"));
     }
 
     public void printWrongTopLimitMessage(int bottomLimit) {
-        printMessage("Wrong top limit! Should be less than " + bottomLimit);
+        printMessage(
+                String.format(
+                        translator.getInputMessage("wrongTopLimit"),
+                        bottomLimit
+                )
+        );
     }
 
     public void printInputBottomLimitMessage() {
-        printMessage("Input bottom limit :");
+        printMessage(translator.getInputMessage("bottomLimit"));
+    }
+
+    public String getLabel(String key) {
+        return translator.getLabel(key);
     }
 
     public void printTotalPrice(int price) {
-        printMessage(String.format("Total price: %d", price));
+        printMessage(String.format(getLabel("totalPrice"), price));
     }
 
     public void printMessage(String message) {

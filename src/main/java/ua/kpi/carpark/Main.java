@@ -11,7 +11,7 @@ public class Main {
         Controller controller = new Controller(new CarPark(), view);
         controller.start();
 
-        view.changeLanguage("ru");
+        view.setLanguage("ru");
         controller.start();
     }
 }
