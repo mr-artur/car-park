@@ -3,7 +3,6 @@ package ua.kpi.carpark.model;
 import ua.kpi.carpark.model.car.Car;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,9 +33,9 @@ public class CarPark {
                 .collect(Collectors.toList());
     }
 
-    public List<Car> getSortedByConsumption() {
+    public List<Car> getSortedByFuelCost() {
         return cars.stream()
-                .sorted(Comparator.comparingDouble(Car::getFuelConsumption))
+                .sorted(Car.COMPARE_BY_FUEL_COST)
                 .collect(Collectors.toList());
     }
 }
