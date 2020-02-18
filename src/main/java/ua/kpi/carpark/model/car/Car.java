@@ -10,7 +10,7 @@ public abstract class Car {
         BigDecimal fuelCost2 = car2.calculateFuelCost(1);
         return fuelCost1.compareTo(fuelCost2);
     };
-    public static final BigDecimal TARIFF_PER_KILOMETER = BigDecimal.ONE;
+    public static final BigDecimal TARIFF_PER_KILOMETER = BigDecimal.valueOf(1);
     protected BigDecimal consumptionPerKilometer;
     protected BigDecimal refuelingTariff;
     private String model;
@@ -49,9 +49,8 @@ public abstract class Car {
         BigDecimal basicTariff = TARIFF_PER_KILOMETER.multiply(
                 BigDecimal.valueOf(kilometers));
 
-        return basicTariff.multiply(
-                BigDecimal.valueOf(comfortLevel.getCoefficient()));
+        return basicTariff.multiply(comfortLevel.getCoefficient());
     }
 
-    public abstract BigDecimal calculateFuelCost(int kilometers);
+    protected abstract BigDecimal calculateFuelCost(int kilometers);
 }

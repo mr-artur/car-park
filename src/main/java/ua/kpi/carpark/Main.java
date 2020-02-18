@@ -7,8 +7,7 @@ import ua.kpi.carpark.view.View;
 public class Main {
 
     public static void main(String... args) {
-        View view = new View();
-        Controller controller = new Controller(new CarPark(), view);
+        Controller controller = new Controller(new CarPark(), new View());
         controller.start();
     }
 }

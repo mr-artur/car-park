@@ -1,20 +1,22 @@
 package ua.kpi.carpark.model.car;
 
+import java.math.BigDecimal;
+
 public enum ComfortLevel {
 
-    ECONOMY(1),
-    STANDARD(1.2),
-    COMFORT(1.4),
-    BUSINESS(2),
-    UNIVERSAL(2.2);
+    ECONOMY(BigDecimal.valueOf(1)),
+    STANDARD(BigDecimal.valueOf(1.2)),
+    COMFORT(BigDecimal.valueOf(1.4)),
+    BUSINESS(BigDecimal.valueOf(2)),
+    UNIVERSAL(BigDecimal.valueOf(2.2));
 
-    private final double coefficient;
+    private final BigDecimal coefficient;
 
-    ComfortLevel(double coefficient) {
+    ComfortLevel(BigDecimal coefficient) {
         this.coefficient = coefficient;
     }
 
-    public double getCoefficient() {
+    public BigDecimal getCoefficient() {
         return coefficient;
     }
 }

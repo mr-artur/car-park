@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class ElectricCar extends Car {
 
-    public static final double LOSS_RATIO = 1.4;
+    public static final BigDecimal LOSS_RATIO = BigDecimal.valueOf(1.4);
 
     public ElectricCar(BigDecimal consumptionPerKilometer,
                        BigDecimal refuelingTariff, String model, int price,
@@ -20,6 +20,6 @@ public class ElectricCar extends Car {
 
         BigDecimal costWithoutLosses = consumption.multiply(refuelingTariff);
 
-        return costWithoutLosses.multiply(BigDecimal.valueOf(LOSS_RATIO));
+        return costWithoutLosses.multiply(LOSS_RATIO);
     }
 }
