@@ -6,7 +6,7 @@ public class Constants {
     public static final String CHOOSE_ENGLISH = "- 1. English";
     public static final String CHOOSE_RUSSIAN = "- 2. Русский";
 
-    public static final String RESOURCE_NAME = "messages";
+    public static final String BUNDLE_NAME = "messages";
     public static final String INPUT_PREFIX = "input.";
     public static final String MENU_PREFIX = INPUT_PREFIX + "menu.";
     public static final String OUTPUT_PREFIX = "output.";

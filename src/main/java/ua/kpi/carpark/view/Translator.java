@@ -12,8 +12,7 @@ public class Translator {
     }
 
     public void setLanguage(String language) {
-        bundle = ResourceBundle.getBundle(
-                Constants.RESOURCE_NAME, new Locale(language));
+
     }
 
     public int getLength(String key) {

@@ -1,11 +1,19 @@
 package ua.kpi.carpark.view;
 
+import java.util.ResourceBundle;
+
 public class View {
 
+    private ResourceBundle bundle;
     private Translator translator = new Translator();
 
-    public void setLanguage(String language) {
-        translator.setLanguage(language);
+    public View(){
+        setLanguage(Language.ENGLISH);
+    }
+
+    public void setLanguage(Language language) {
+        bundle = ResourceBundle.getBundle(Constants.BUNDLE_NAME,
+                language.getLocale());
     }
 
     public void printMessage(String... messages) {
