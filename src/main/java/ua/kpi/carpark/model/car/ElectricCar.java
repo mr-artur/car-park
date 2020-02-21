@@ -18,10 +18,11 @@ public class ElectricCar extends Car {
 
     @Override
     public BigDecimal calculateFuelCost(int kilometers) {
-        BigDecimal consumption = consumptionPerKilometer.multiply(
-                BigDecimal.valueOf(kilometers));
+        BigDecimal consumption = getConsumptionPerKilometer()
+                .multiply(BigDecimal.valueOf(kilometers));
 
-        BigDecimal costWithoutLosses = consumption.multiply(refuelingTariff);
+        BigDecimal costWithoutLosses = consumption
+                .multiply(getRefuelingTariff());
 
         return costWithoutLosses.multiply(LOSS_RATIO);
     }

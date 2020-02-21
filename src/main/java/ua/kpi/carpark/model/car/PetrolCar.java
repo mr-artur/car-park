@@ -16,9 +16,9 @@ public class PetrolCar extends Car {
 
     @Override
     public BigDecimal calculateFuelCost(int kilometers) {
-        BigDecimal consumption = consumptionPerKilometer.multiply(
-                BigDecimal.valueOf(kilometers));
+        BigDecimal consumption = getConsumptionPerKilometer()
+                .multiply(BigDecimal.valueOf(kilometers));
 
-        return consumption.multiply(refuelingTariff);
+        return consumption.multiply(getRefuelingTariff());
     }
 }

@@ -41,10 +41,9 @@ public class CarPark {
      * @return matching cars
      */
     public List<Car> getBySpeedRange(int bottom, int top) {
-        Predicate<Car> criteria = car -> (car.getMaxSpeed() >= bottom)
-                && (car.getMaxSpeed() <= top);
         return cars.stream()
-                .filter(criteria)
+                .filter(car -> (car.getMaxSpeed() >= bottom)
+                        && (car.getMaxSpeed() <= top))
                 .collect(Collectors.toList());
     }
 

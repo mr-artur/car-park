@@ -25,8 +25,8 @@ public abstract class Car {
      */
     public static final BigDecimal TARIFF_PER_KILOMETER = BigDecimal.valueOf(1);
 
-    protected BigDecimal consumptionPerKilometer;
-    protected BigDecimal refuelingTariff;
+    private BigDecimal consumptionPerKilometer;
+    private BigDecimal refuelingTariff;
     private String model;
     private Integer price;
     private Integer maxSpeed;
@@ -41,6 +41,14 @@ public abstract class Car {
         this.comfortLevel = comfortLevel;
         this.refuelingTariff = refuelingTariff;
         this.consumptionPerKilometer = consumptionPerKilometer;
+    }
+
+    public BigDecimal getConsumptionPerKilometer() {
+        return consumptionPerKilometer;
+    }
+
+    public BigDecimal getRefuelingTariff() {
+        return refuelingTariff;
     }
 
     public String getModel() {
