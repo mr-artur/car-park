@@ -26,7 +26,7 @@ class CarParkTest {
     void getTotalPrice_shouldReturnTotalPriceOfCarPark() {
         int actual = carPark.getTotalPrice();
 
-        assertEquals(260000, actual);
+        assertEquals(379000, actual);
     }
 
     @Test

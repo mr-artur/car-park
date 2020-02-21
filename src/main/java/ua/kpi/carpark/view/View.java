@@ -2,12 +2,12 @@ package ua.kpi.carpark.view;
 
 import ua.kpi.carpark.model.car.Car;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class View {
 
     private ResourceBundle bundle;
@@ -16,11 +16,13 @@ public class View {
     public View(Formatter formatter) {
         this.formatter = formatter;
         setLanguage(Language.ENGLISH);
+        formatter.setBundle(bundle);
     }
 
     public void setLanguage(Language language) {
         bundle = ResourceBundle.getBundle(ViewConstants.BUNDLE_NAME,
                 language.getLocale());
+        formatter.setBundle(bundle);
     }
 
     public void printMessage(String message) {
@@ -38,38 +40,7 @@ public class View {
     }
 
     public void printCarsTable(List<Car> cars) {
-        printHeader();
-        printBody(cars);
-    }
-
-    private void printHeader() {
-        Map<String, Integer> columnHeaders = getTranslatedHeaders();
-        printMessage(formatter.formatHeader(columnHeaders));
-    }
-
-    private Map<String, Integer> getTranslatedHeaders() {
-        Map<String, Integer> headers = new LinkedHashMap<>();
-
-        for (CarTableColumn column : CarTableColumn.values()) {
-            String columnHeader = bundle.getString(column.getKey());
-            int length = Integer.parseInt(bundle.getString(column.getLength()));
-            headers.put(columnHeader, length);
-        }
-        return headers;
-    }
-
-    private void printBody(List<Car> cars) {
-        List<Integer> lengths = getHeaderLengths();
-        printMessage(formatter.formatBody(cars, lengths));
-    }
-
-    private List<Integer> getHeaderLengths() {
-        List<Integer> lengths = new ArrayList<>();
-
-        for (CarTableColumn column : CarTableColumn.values()) {
-            int length = Integer.parseInt(bundle.getString(column.getLength()));
-            lengths.add(length);
-        }
-        return lengths;
+        printMessage(formatter.formatHeader());
+        printMessage(formatter.formatBody(cars));
     }
 }

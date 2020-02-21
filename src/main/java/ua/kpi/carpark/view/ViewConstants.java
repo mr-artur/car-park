@@ -1,6 +1,14 @@
 package ua.kpi.carpark.view;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class ViewConstants {
+
+    public static final char HORIZONTAL_DELIMITER = '-';
+    public static final String VERTICAL_DELIMITER = "|";
+    public static final String LINE_BREAK = "\n";
+    public static final String FIXED_LENGTH_FORMAT = "%%-%ds";
 
     public static final String INPUT_PREFIX = "input.";
     public static final String MENU = INPUT_PREFIX + "menu";

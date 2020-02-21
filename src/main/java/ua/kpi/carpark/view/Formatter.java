@@ -4,8 +4,11 @@ import ua.kpi.carpark.model.car.Car;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
 /**
@@ -13,31 +16,51 @@ import java.util.StringJoiner;
  */
 public class Formatter {
 
-    public static final String DELIMITER = "|";
-    public static final char HORIZONTAL_DELIMITER = '-';
-    public static final String LINE_BREAK = "\n";
+    private ResourceBundle bundle;
 
-    public String formatHeader(Map<String, Integer> headers) {
-        StringJoiner joiner = new StringJoiner(DELIMITER, DELIMITER, DELIMITER);
+    public void setBundle(ResourceBundle bundle) {
+        this.bundle = bundle;
+    }
+
+    public String formatHeader() {
+        Map<String, Integer> headers = getTranslatedHeaders();
+        StringJoiner joiner = new StringJoiner(ViewConstants.VERTICAL_DELIMITER, ViewConstants.VERTICAL_DELIMITER, ViewConstants.VERTICAL_DELIMITER);
 
         for (Map.Entry<String, Integer> header : headers.entrySet()) {
             int length = header.getValue();
             String headerText = header.getKey();
-            String formatted = String.format("%-" + length + "s", headerText);
+            String formatted = formatColumnHeader(length, headerText);
             joiner.add(formatted);
         }
-        String lineDelimiter = buildStringOfCharCopies(joiner.length(), HORIZONTAL_DELIMITER);
-        return new StringJoiner(LINE_BREAK)
+        String lineDelimiter = buildStringOfCharCopies(joiner.length(), ViewConstants.HORIZONTAL_DELIMITER);
+        return new StringJoiner(ViewConstants.LINE_BREAK)
                 .add(lineDelimiter)
                 .add(joiner.toString())
                 .add(lineDelimiter)
                 .toString();
     }
 
-    public String formatBody(List<Car> cars, List<Integer> lengths) {
+    private String formatColumnHeader(int length, String headerText) {
+        String format = buildFormatWithLength(length);
+        return String.format(format, headerText);
+    }
+
+    private Map<String, Integer> getTranslatedHeaders() {
+        Map<String, Integer> headers = new LinkedHashMap<>();
+
+        for (CarTableColumn column : CarTableColumn.values()) {
+            String columnHeader = bundle.getString(column.getKey());
+            int length = Integer.parseInt(bundle.getString(column.getLength()));
+            headers.put(columnHeader, length);
+        }
+        return headers;
+    }
+
+    public String formatBody(List<Car> cars) {
+        List<Integer> lengths = getHeaderLengths();
         String lineDelimiter = buildLineDelimiter(lengths);
 
-        StringJoiner joiner = new StringJoiner(LINE_BREAK);
+        StringJoiner joiner = new StringJoiner(ViewConstants.LINE_BREAK);
 
         for (int i = 0; i < cars.size(); i++) {
             joiner.add(formatLine(i + 1, cars.get(i), lengths));
@@ -46,8 +69,18 @@ public class Formatter {
         return joiner.toString();
     }
 
+    private List<Integer> getHeaderLengths() {
+        List<Integer> lengths = new ArrayList<>();
+
+        for (CarTableColumn column : CarTableColumn.values()) {
+            int length = Integer.parseInt(bundle.getString(column.getLength()));
+            lengths.add(length);
+        }
+        return lengths;
+    }
+
     private String formatLine(Integer number, Car car, List<Integer> lengths) {
-        StringJoiner joiner = new StringJoiner(DELIMITER, DELIMITER, DELIMITER);
+        StringJoiner joiner = new StringJoiner(ViewConstants.VERTICAL_DELIMITER, ViewConstants.VERTICAL_DELIMITER, ViewConstants.VERTICAL_DELIMITER);
         BigDecimal fuelCost = car.calculateFuelCost(100).setScale(2, RoundingMode.HALF_UP);
         BigDecimal tariff = car.calculateFare(1).setScale(1);
 
@@ -67,13 +100,13 @@ public class Formatter {
     }
 
     private String buildFormatWithLength(int length) {
-        return String.format("%%-%ds", length);
+        return String.format(ViewConstants.FIXED_LENGTH_FORMAT, length);
     }
 
     private String buildLineDelimiter(List<Integer> lengths) {
         int length = lengths.stream().reduce(0, (acc, len) -> acc + len);
         int lengthWithBorders = length + lengths.size() + 1;
-        return buildStringOfCharCopies(lengthWithBorders, HORIZONTAL_DELIMITER);
+        return buildStringOfCharCopies(lengthWithBorders, ViewConstants.HORIZONTAL_DELIMITER);
     }
 
     private String buildStringOfCharCopies(int repeats, char symbol) {
