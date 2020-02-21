@@ -1,5 +1,8 @@
 package ua.kpi.carpark.view;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public enum CarTableColumn {
     NUMBER("number"),
     MODEL("model"),

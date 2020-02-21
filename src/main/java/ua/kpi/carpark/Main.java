@@ -5,6 +5,9 @@ import ua.kpi.carpark.model.CarPark;
 import ua.kpi.carpark.view.Formatter;
 import ua.kpi.carpark.view.View;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class Main {
 
     public static void main(String... args) {

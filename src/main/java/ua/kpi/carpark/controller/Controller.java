@@ -6,6 +6,9 @@ import ua.kpi.carpark.view.View;
 
 import java.util.Scanner;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class Controller {
 
     private final CarPark carPark;
@@ -34,9 +37,9 @@ public class Controller {
     }
 
     private void setLanguage(int languageCode) {
-        if (languageCode == Language.ENGLISH.getCode()) {
+        if (languageCode == Language.ENGLISH.ordinal()) {
             view.setLanguage(Language.ENGLISH);
-        } else if (languageCode == Language.RUSSIAN.getCode()) {
+        } else if (languageCode == Language.RUSSIAN.ordinal()) {
             view.setLanguage(Language.RUSSIAN);
         }
     }
@@ -51,32 +54,32 @@ public class Controller {
     }
 
     private void executeOperation(int operation) {
-        if (operation == Constants.FIRST_OPERATION_CODE) {
-            printAllCars();
-        } else if (operation == Constants.SECOND_OPERATION_CODE) {
-            printSortedCars();
-        } else if (operation == Constants.THIRD_OPERATION_CODE) {
-            printCarsByRange();
-        } else if (operation == Constants.FOURTH_OPERATION_CODE) {
-            printTotalPrice();
+        if (operation == Constants.ALL_CODE) {
+            showAllCars();
+        } else if (operation == Constants.SORTED_CODE) {
+            showSortedCars();
+        } else if (operation == Constants.FILTERED_CODE) {
+            showCarsByRange();
+        } else if (operation == Constants.PRICE_CODE) {
+            showTotalPrice();
         }
     }
 
-    private void printAllCars() {
+    private void showAllCars() {
         printer.printAllCars(carPark.getCars());
     }
 
-    private void printCarsByRange() {
+    private void showCarsByRange() {
         int bottom = inputScanner.inputBottomLimit(scanner);
         int top = inputScanner.inputTopLimit(scanner, bottom);
         printer.printCarsByRange(carPark.getBySpeedRange(bottom, top));
     }
 
-    private void printSortedCars() {
+    private void showSortedCars() {
         printer.printSortedCars(carPark.getSortedByFuelCost());
     }
 
-    private void printTotalPrice() {
+    private void showTotalPrice() {
         printer.printTotalPrice(carPark.getTotalPrice());
     }
 }

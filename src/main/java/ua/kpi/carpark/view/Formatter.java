@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class Formatter {
 
     public static final String DELIMITER = "|";

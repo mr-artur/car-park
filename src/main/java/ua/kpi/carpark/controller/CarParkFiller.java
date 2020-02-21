@@ -8,11 +8,19 @@ import ua.kpi.carpark.model.car.ComfortLevel;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class CarParkFiller {
 
     private final FileReader reader = new FileReader();
     private final CarFactory factory = CarFactory.getInstance();
 
+    /**
+     * Fills the car park with cars read from file
+     *
+     * @param park car park
+     */
     public void fillCarPark(CarPark park) {
         List<String> lines = reader.readFromLine(Constants.DATA_FILE_NAME, 2);
         lines.stream()
