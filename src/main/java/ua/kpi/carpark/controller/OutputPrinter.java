@@ -2,6 +2,7 @@ package ua.kpi.carpark.controller;
 
 import ua.kpi.carpark.model.car.Car;
 import ua.kpi.carpark.view.View;
+import ua.kpi.carpark.view.ViewConstants;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class OutputPrinter {
      * @param cars cars list
      */
     public void printAllCars(List<Car> cars) {
-        view.printTranslatedMessage(View.ALL_LABEL);
+        view.printTranslatedMessage(ViewConstants.ALL_LABEL);
         view.printCarsTable(cars);
     }
 
@@ -32,7 +33,7 @@ public class OutputPrinter {
      * @param cars sorted cars list
      */
     public void printSortedCars(List<Car> cars) {
-        view.printTranslatedMessage(View.SORTED_LABEL);
+        view.printTranslatedMessage(ViewConstants.SORTED_LABEL);
         view.printCarsTable(cars);
     }
 
@@ -42,7 +43,7 @@ public class OutputPrinter {
      * @param cars filtered cars list
      */
     public void printCarsByRange(List<Car> cars) {
-        view.printTranslatedMessage(View.FILTERED_LABEL);
+        view.printTranslatedMessage(ViewConstants.FILTERED_LABEL);
         view.printCarsTable(cars);
     }
 
@@ -52,7 +53,7 @@ public class OutputPrinter {
      * @param price total price
      */
     public void printTotalPrice(Integer price) {
-        view.printTranslatedMessage(View.TOTAL_PRICE_LABEL);
+        view.printTranslatedMessage(ViewConstants.TOTAL_PRICE_LABEL);
         view.printMessage(price.toString());
     }
 }

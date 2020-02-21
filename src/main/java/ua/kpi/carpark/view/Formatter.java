@@ -16,7 +16,6 @@ public class Formatter {
     public static final String DELIMITER = "|";
     public static final char HORIZONTAL_DELIMITER = '-';
     public static final String LINE_BREAK = "\n";
-    public static final String EMPTY = "";
 
     public String formatHeader(Map<String, Integer> headers) {
         StringJoiner joiner = new StringJoiner(DELIMITER, DELIMITER, DELIMITER);

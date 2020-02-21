@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * Created by Artur Morozov on 2020-02-16
  */
 public class FileReader {
+
     /**
      * Returns list of lines read from file
      *

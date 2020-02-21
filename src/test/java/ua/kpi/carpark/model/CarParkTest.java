@@ -42,7 +42,7 @@ class CarParkTest {
     @Test
     void getBySpeedRange_shouldReturnFilteredCarsList_whenLimitsAreCorrect() {
         int bottomLimit = 0;
-        int topLimit = 150;
+        int topLimit = 160;
 
         List<Car> cars = carPark.getBySpeedRange(bottomLimit, topLimit);
         int firstCarSpeed = cars.get(0).getMaxSpeed();
@@ -55,14 +55,22 @@ class CarParkTest {
         return (speed <= topLimit) && (speed >= bottomLimit);
     }
 
-//    @Test
-//    void getSortedByConsumption_shouldReturnCarsListSortedByConsumption() {
-//        List<Car> cars = carPark.getSortedByConsumption();
-//        double firstCarConsumption = cars.get(0).getFuelConsumption();
-//        double secondCarConsumption = cars.get(1).getFuelConsumption();
-//        double lastCarConsumption = cars.get(cars.size() - 1).getFuelConsumption();
-//
-//        assertTrue(firstCarConsumption <= secondCarConsumption);
-//        assertTrue(secondCarConsumption <= lastCarConsumption);
-//    }
+    @Test
+    void getSortedByFuelCost_shouldReturnCarsListSortedByFuelCost() {
+        int distance = 1;
+
+        List<Car> cars = carPark.getSortedByFuelCost();
+        double firstCarFuelCost = cars.get(0)
+                .calculateFuelCost(distance)
+                .doubleValue();
+        double secondCarFuelCost = cars.get(1)
+                .calculateFuelCost(distance)
+                .doubleValue();
+        double lastCarConsumption = cars.get(cars.size() - 1)
+                .calculateFuelCost(distance)
+                .doubleValue();
+
+        assertTrue(firstCarFuelCost <= secondCarFuelCost);
+        assertTrue(secondCarFuelCost <= lastCarConsumption);
+    }
 }
