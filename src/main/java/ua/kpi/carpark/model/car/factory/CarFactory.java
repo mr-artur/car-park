@@ -24,19 +24,19 @@ public final class CarFactory {
     }
 
     public Car produce(String type, BigDecimal consumptionPerKilometer,
-                       BigDecimal refuelingTariff, String model, int price,
-                       int maxSpeed, ComfortLevel comfortLevel) {
+                       BigDecimal refuelingTariff, ComfortLevel comfortLevel,
+                       String model, int price, int maxSpeed) {
         TypeCar sign = TypeCar.valueOf(type.toUpperCase());
         Car car;
 
         switch (sign) {
             case ELECTRIC:
                 car = new ElectricCar(consumptionPerKilometer, refuelingTariff,
-                        model, price, maxSpeed, comfortLevel);
+                                      comfortLevel, model, price, maxSpeed);
                 break;
             case PETROL:
                 car = new PetrolCar(consumptionPerKilometer, refuelingTariff,
-                        model, price, maxSpeed, comfortLevel);
+                                    comfortLevel, model, price, maxSpeed);
                 break;
             default:
                 throw new IllegalArgumentException("Wrong car type : " + type);

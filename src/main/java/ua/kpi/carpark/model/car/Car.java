@@ -33,8 +33,8 @@ public abstract class Car {
     private ComfortLevel comfortLevel;
 
     protected Car(BigDecimal consumptionPerKilometer,
-                  BigDecimal refuelingTariff, String model, int price,
-                  int maxSpeed, ComfortLevel comfortLevel) {
+                  BigDecimal refuelingTariff, ComfortLevel comfortLevel,
+                  String model, int price, int maxSpeed) {
         this.model = model;
         this.price = price;
         this.maxSpeed = maxSpeed;
@@ -66,8 +66,8 @@ public abstract class Car {
      * @return tariff cost
      */
     public BigDecimal calculateFare(int kilometers) {
-        BigDecimal basicTariff = TARIFF_PER_KILOMETER.multiply(
-                BigDecimal.valueOf(kilometers));
+        BigDecimal basicTariff = TARIFF_PER_KILOMETER
+                .multiply(BigDecimal.valueOf(kilometers));
 
         return basicTariff.multiply(comfortLevel.getCoefficient());
     }

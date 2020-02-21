@@ -31,14 +31,16 @@ public class CarParkFiller {
 
     private Car createCar(String[] fields) {
         String type = fields[0];
-        BigDecimal consumption = BigDecimal.valueOf(Double.parseDouble(fields[1]));
+        BigDecimal consumption = BigDecimal
+                .valueOf(Double.parseDouble(fields[1]));
         BigDecimal tariff = BigDecimal.valueOf(Double.parseDouble(fields[2]));
         String model = fields[3];
         int price = Integer.parseInt(fields[4]);
         int maxSpeed = Integer.parseInt(fields[5]);
-        ComfortLevel comfortLevel = ComfortLevel.valueOf(fields[6].toUpperCase());
+        ComfortLevel comfortLevel = ComfortLevel
+                .valueOf(fields[6].toUpperCase());
 
-        return factory.produce(type, consumption, tariff, model, price,
-                maxSpeed, comfortLevel);
+        return factory.produce(type, consumption, tariff, comfortLevel, model,
+                               price, maxSpeed);
     }
 }

@@ -21,7 +21,7 @@ public class View {
 
     public void setLanguage(Language language) {
         bundle = ResourceBundle.getBundle(ViewConstants.BUNDLE_NAME,
-                language.getLocale());
+                                          language.getLocale());
         formatter.setBundle(bundle);
     }
 

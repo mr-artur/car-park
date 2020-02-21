@@ -10,10 +10,10 @@ public class ElectricCar extends Car {
     public static final BigDecimal LOSS_RATIO = BigDecimal.valueOf(1.4);
 
     public ElectricCar(BigDecimal consumptionPerKilometer,
-                       BigDecimal refuelingTariff, String model, int price,
-                       int maxSpeed, ComfortLevel comfortLevel) {
-        super(consumptionPerKilometer, refuelingTariff, model, price, maxSpeed,
-                comfortLevel);
+                       BigDecimal refuelingTariff, ComfortLevel comfortLevel,
+                       String model, int price, int maxSpeed) {
+        super(consumptionPerKilometer, refuelingTariff, comfortLevel, model,
+              price, maxSpeed);
     }
 
     @Override
