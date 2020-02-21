@@ -8,6 +8,9 @@ import java.util.Comparator;
  */
 public abstract class Car {
 
+    /**
+     * Comparator can be used to compare/sort cars by fuel cost in ASC order
+     */
     public static final Comparator<Car> COMPARE_BY_FUEL_COST = (car1, car2) -> {
         final int distance = 1;
 
@@ -16,6 +19,10 @@ public abstract class Car {
 
         return fuelCost1.compareTo(fuelCost2);
     };
+
+    /**
+     * Basic fare per 1 km
+     */
     public static final BigDecimal TARIFF_PER_KILOMETER = BigDecimal.valueOf(1);
 
     protected BigDecimal consumptionPerKilometer;

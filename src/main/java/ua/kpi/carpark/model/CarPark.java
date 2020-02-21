@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class CarPark {
 
     private final List<Car> cars = new ArrayList<>();
@@ -19,12 +22,24 @@ public class CarPark {
         return cars;
     }
 
+    /**
+     * Returns total price of all cars in car park
+     *
+     * @return total price
+     */
     public int getTotalPrice() {
         return cars.stream()
-                .map(car -> car.getPrice())
-                .reduce(0, (acc, price) -> acc + price);
+                .map(Car::getPrice)
+                .reduce(0, Integer::sum);
     }
 
+    /**
+     * Returns cars filtered by speed range
+     *
+     * @param bottom minimum speed to match
+     * @param top    maximum speed to match
+     * @return matching cars
+     */
     public List<Car> getBySpeedRange(int bottom, int top) {
         Predicate<Car> criteria = car -> (car.getMaxSpeed() >= bottom)
                 && (car.getMaxSpeed() <= top);
@@ -33,6 +48,11 @@ public class CarPark {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Returns cars sorted by fuel cost in ASC order
+     *
+     * @return sorted cars
+     */
     public List<Car> getSortedByFuelCost() {
         return cars.stream()
                 .sorted(Car.COMPARE_BY_FUEL_COST)

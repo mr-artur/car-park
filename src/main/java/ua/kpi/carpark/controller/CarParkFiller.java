@@ -2,7 +2,7 @@ package ua.kpi.carpark.controller;
 
 import ua.kpi.carpark.model.CarPark;
 import ua.kpi.carpark.model.car.Car;
-import ua.kpi.carpark.model.car.CarFactory;
+import ua.kpi.carpark.model.car.factory.CarFactory;
 import ua.kpi.carpark.model.car.ComfortLevel;
 
 import java.math.BigDecimal;
@@ -30,6 +30,7 @@ public class CarParkFiller {
         int maxSpeed = Integer.parseInt(fields[5]);
         ComfortLevel comfortLevel = ComfortLevel.valueOf(fields[6].toUpperCase());
 
-        return factory.produce(type, consumption, tariff, model, price, maxSpeed, comfortLevel);
+        return factory.produce(type, consumption, tariff, model, price,
+                maxSpeed, comfortLevel);
     }
 }

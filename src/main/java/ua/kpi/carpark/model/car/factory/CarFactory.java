@@ -1,12 +1,15 @@
-package ua.kpi.carpark.model.car;
+package ua.kpi.carpark.model.car.factory;
+
+import ua.kpi.carpark.model.car.Car;
+import ua.kpi.carpark.model.car.ComfortLevel;
+import ua.kpi.carpark.model.car.ElectricCar;
+import ua.kpi.carpark.model.car.PetrolCar;
 
 import java.math.BigDecimal;
 
-enum TypeCar {
-    ELECTRIC,
-    PETROL
-}
-
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public final class CarFactory {
 
     private static class CarFactoryHolder {
