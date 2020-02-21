@@ -6,7 +6,6 @@ public class Constants {
     public static final String CHOOSE_ENGLISH = "- 1. English";
     public static final String CHOOSE_RUSSIAN = "- 2. Русский";
 
-    public static final String BUNDLE_NAME = "messages";
     public static final String INPUT_PREFIX = "input.";
     public static final String MENU_PREFIX = INPUT_PREFIX + "menu.";
     public static final String OUTPUT_PREFIX = "output.";
@@ -15,10 +14,7 @@ public class Constants {
     public static final String LABEL_PREFIX = OUTPUT_PREFIX + "label.";
 
     public static final String INPUT_OPERATION_KEY = "inputOperation";
-    public static final String WRONG_INPUT_KEY = "wrongInput";
-    public static final String TOP_LIMIT_KEY = "topLimit";
-    public static final String WRONG_TOP_LIMIT_KEY = "wrongTopLimit";
-    public static final String BOTTOM_LIMIT_KEY = "bottomLimit";
+
     public static final String TOTAL_PRICE_KEY = "totalPrice";
 
     public static final String MENU_HEADER_KEY = "menuHeader";

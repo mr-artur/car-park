@@ -1,83 +1,86 @@
 package ua.kpi.carpark.view;
 
-import java.util.ResourceBundle;
+import ua.kpi.carpark.model.car.Car;
+
+import java.util.*;
 
 public class View {
 
-    private ResourceBundle bundle;
-    private Translator translator = new Translator();
+    public static final String TOP_LIMIT = "input.top.limit";
+    public static final String WRONG_TOP_LIMIT = "wrong.top.limit";
+    public static final String BOTTOM_LIMIT = "input.bottom.limit";
+    public static final String WRONG_INPUT = "input.wrong";
+    public static final String INPUT_OPERATION= "input.operation";
+    public static final String TOTAL_PRICE_LABEL = "output.label.total.price";
+    public static final String SORTED_LABEL = "output.label.sorted";
+    public static final String FILTERED_LABEL = "output.label.filtered";
+    public static final String ALL_LABEL = "output.label.all";
+    public static final String BUNDLE_NAME = "messages";
+    public static final String MENU = "input.menu";
 
-    public View(){
+    private ResourceBundle bundle;
+    private Formatter formatter;
+
+    public View(Formatter formatter) {
+        this.formatter = formatter;
         setLanguage(Language.ENGLISH);
     }
 
     public void setLanguage(Language language) {
-        bundle = ResourceBundle.getBundle(Constants.BUNDLE_NAME,
-                language.getLocale());
+        bundle = ResourceBundle.getBundle(BUNDLE_NAME, language.getLocale());
     }
 
-    public void printMessage(String... messages) {
-        for (String message : messages) {
-            printLine(message);
-        }
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
-    private void printLine(String line) {
-        System.out.println(line);
+    public void printTranslatedMessage(String key) {
+        printMessage(bundle.getString(key));
     }
 
     public void printLanguageMenu() {
-        for (String message : Constants.languageMenu) {
-            printMessage(message);
+        for (Language language : Language.values()) {
+            printMessage(language.getMessage());
         }
     }
 
     public void printMenu() {
-        for (String key : Constants.menuKeys) {
-            printMessage(getMenuMessage(key));
+        printMessage(bundle.getString(MENU));
+    }
+
+    public void printCarsTable(List<Car> cars) {
+        printHeader();
+        printBody(cars);
+    }
+
+    private void printHeader() {
+        Map<String, Integer> columnHeaders = getTranslatedHeaders();
+        printMessage(formatter.formatHeader(columnHeaders));
+    }
+
+    private Map<String, Integer> getTranslatedHeaders() {
+        Map<String, Integer> headers = new LinkedHashMap<>();
+
+        for (CarTableColumn column : CarTableColumn.values()) {
+            String columnHeader = bundle.getString(column.getKey());
+            int length = Integer.parseInt(bundle.getString(column.getLength()));
+            headers.put(columnHeader, length);
         }
+        return headers;
     }
 
-    private String getMenuMessage(String key) {
-        return translator.getMenuMessage(key);
+    private void printBody(List<Car> cars) {
+        List<Integer> lengths = getHeaderLengths();
+        printMessage(formatter.formatBody(cars, lengths));
     }
 
-    public String getHeaderField(String key) {
-        return translator.getHeaderField(key);
-    }
+    private List<Integer> getHeaderLengths() {
+        List<Integer> lengths = new ArrayList<>();
 
-    public void printInputMessage(int bottom, int top) {
-        String format = translator.getInputMessage(Constants.INPUT_OPERATION_KEY);
-        printMessage(String.format(format, bottom, top));
-    }
-
-    public void printWrongInputMessage() {
-        printMessage(translator.getInputMessage(Constants.WRONG_INPUT_KEY));
-    }
-
-    public void printInputTopLimitMessage() {
-        printMessage(translator.getInputMessage(Constants.TOP_LIMIT_KEY));
-    }
-
-    public void printWrongTopLimitMessage(int bottomLimit) {
-        String format = translator.getInputMessage(Constants.WRONG_TOP_LIMIT_KEY);
-        printMessage(String.format(format, bottomLimit));
-    }
-
-    public void printInputBottomLimitMessage() {
-        printMessage(translator.getInputMessage(Constants.BOTTOM_LIMIT_KEY));
-    }
-
-    public String getLabel(String key) {
-        return translator.getLabel(key);
-    }
-
-    public void printTotalPrice(int price) {
-        String format = getLabel(Constants.TOTAL_PRICE_KEY);
-        printMessage(String.format(format, price));
-    }
-
-    public int getLength(String field) {
-        return translator.getLength(field);
+        for (CarTableColumn column : CarTableColumn.values()) {
+            int length = Integer.parseInt(bundle.getString(column.getLength()));
+            lengths.add(length);
+        }
+        return lengths;
     }
 }

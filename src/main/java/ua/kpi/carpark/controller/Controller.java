@@ -1,6 +1,7 @@
 package ua.kpi.carpark.controller;
 
 import ua.kpi.carpark.model.CarPark;
+import ua.kpi.carpark.view.Language;
 import ua.kpi.carpark.view.View;
 
 import java.util.Scanner;
@@ -33,10 +34,10 @@ public class Controller {
     }
 
     private void setLanguage(int languageCode) {
-        if (languageCode == Constants.ENGLISH_CODE) {
-            view.setLanguage(Constants.ENGLISH);
-        } else if (languageCode == Constants.RUSSIAN_CODE) {
-            view.setLanguage(Constants.RUSSIAN);
+        if (languageCode == Language.ENGLISH.getCode()) {
+            view.setLanguage(Language.ENGLISH);
+        } else if (languageCode == Language.RUSSIAN.getCode()) {
+            view.setLanguage(Language.RUSSIAN);
         }
     }
 
@@ -72,7 +73,7 @@ public class Controller {
     }
 
     private void printSortedCars() {
-        printer.printSortedCars(carPark.getSortedByConsumption());
+        printer.printSortedCars(carPark.getSortedByFuelCost());
     }
 
     private void printTotalPrice() {

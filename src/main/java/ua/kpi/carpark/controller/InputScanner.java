@@ -1,5 +1,6 @@
 package ua.kpi.carpark.controller;
 
+import ua.kpi.carpark.view.Language;
 import ua.kpi.carpark.view.View;
 
 import java.util.Scanner;
@@ -16,25 +17,23 @@ public class InputScanner {
         int languageCode;
 
         view.printLanguageMenu();
-        view.printInputMessage(Constants.MIN_LANGUAGE_CODE,
-                Constants.MAX_LANGUAGE_CODE);
         do {
             languageCode = inputIntValue(scanner);
             if (isIncorrectLanguageCode(languageCode)) {
-                view.printWrongInputMessage();
+                view.printTranslatedMessage(View.WRONG_INPUT);
             }
         } while (isIncorrectLanguageCode(languageCode));
         return languageCode;
     }
 
     private boolean isIncorrectLanguageCode(int languageCode) {
-        return (languageCode < Constants.MIN_LANGUAGE_CODE)
-                || (languageCode > Constants.MAX_LANGUAGE_CODE);
+        return (languageCode < Language.ENGLISH.getCode())
+                || (languageCode > Language.RUSSIAN.getCode());
     }
 
     private int inputIntValue(Scanner scanner) {
         while (!scanner.hasNextInt()) {
-            view.printWrongInputMessage();
+            view.printTranslatedMessage(View.WRONG_INPUT);
             scanner.next();
         }
         return scanner.nextInt();
@@ -44,12 +43,11 @@ public class InputScanner {
         int operation;
 
         view.printMenu();
-        view.printInputMessage(Constants.MIN_OPERATION_CODE,
-                Constants.MAX_OPERATION_CODE);
+        view.printTranslatedMessage(View.INPUT_OPERATION);
         do {
             operation = inputIntValue(scanner);
             if (isIncorrect(operation)) {
-                view.printWrongInputMessage();
+                view.printTranslatedMessage(View.WRONG_INPUT);
             }
         } while (isIncorrect(operation));
         return operation;
@@ -61,19 +59,19 @@ public class InputScanner {
     }
 
     public int inputBottomLimit(Scanner scanner) {
-        view.printInputBottomLimitMessage();
+        view.printTranslatedMessage(View.BOTTOM_LIMIT);
         return inputLimit(scanner);
     }
 
     public int inputTopLimit(Scanner scanner, int bottomLimit) {
         int topLimit;
 
-        view.printInputTopLimitMessage();
+        view.printTranslatedMessage(View.TOP_LIMIT);
         do {
             topLimit = inputLimit(scanner);
             if (topLimit < bottomLimit) {
-                view.printWrongTopLimitMessage(bottomLimit);
-                view.printInputTopLimitMessage();
+                view.printTranslatedMessage(View.WRONG_TOP_LIMIT);
+                view.printTranslatedMessage(View.TOP_LIMIT);
             }
         } while (topLimit < bottomLimit);
         return topLimit;
@@ -85,7 +83,7 @@ public class InputScanner {
         do {
             limit = inputIntValue(scanner);
             if (isNegative(limit)) {
-                view.printWrongInputMessage();
+                view.printTranslatedMessage(View.WRONG_INPUT);
             }
         } while (isNegative(limit));
         return limit;

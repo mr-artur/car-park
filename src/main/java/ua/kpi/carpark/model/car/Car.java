@@ -6,16 +6,19 @@ import java.util.Comparator;
 public abstract class Car {
 
     public static final Comparator<Car> COMPARE_BY_FUEL_COST = (car1, car2) -> {
-        BigDecimal fuelCost1 = car1.calculateFuelCost(1);
-        BigDecimal fuelCost2 = car2.calculateFuelCost(1);
+        final int distance = 1;
+
+        BigDecimal fuelCost1 = car1.calculateFuelCost(distance);
+        BigDecimal fuelCost2 = car2.calculateFuelCost(distance);
+
         return fuelCost1.compareTo(fuelCost2);
     };
     public static final BigDecimal TARIFF_PER_KILOMETER = BigDecimal.valueOf(1);
     protected BigDecimal consumptionPerKilometer;
     protected BigDecimal refuelingTariff;
     private String model;
-    private int price;
-    private int maxSpeed;
+    private Integer price;
+    private Integer maxSpeed;
     private ComfortLevel comfortLevel;
 
     protected Car(BigDecimal consumptionPerKilometer,
@@ -33,11 +36,11 @@ public abstract class Car {
         return model;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public int getMaxSpeed() {
+    public Integer getMaxSpeed() {
         return maxSpeed;
     }
 
@@ -52,5 +55,5 @@ public abstract class Car {
         return basicTariff.multiply(comfortLevel.getCoefficient());
     }
 
-    protected abstract BigDecimal calculateFuelCost(int kilometers);
+    public abstract BigDecimal calculateFuelCost(int kilometers);
 }

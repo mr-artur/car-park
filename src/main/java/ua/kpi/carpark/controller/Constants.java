@@ -2,10 +2,6 @@ package ua.kpi.carpark.controller;
 
 public class Constants {
 
-    public static final int ENGLISH_CODE = 1;
-    public static final int RUSSIAN_CODE = 2;
-    public static final int MIN_LANGUAGE_CODE = ENGLISH_CODE;
-    public static final int MAX_LANGUAGE_CODE = RUSSIAN_CODE;
     public static final int EXIT_CODE = 0;
     public static final int FIRST_OPERATION_CODE = 1;
     public static final int SECOND_OPERATION_CODE = 2;
@@ -14,15 +10,7 @@ public class Constants {
     public static final int MIN_OPERATION_CODE = EXIT_CODE;
     public static final int MAX_OPERATION_CODE = FOURTH_OPERATION_CODE;
 
-    public static final String ENGLISH = "en";
-    public static final String RUSSIAN = "ru";
 
-    public static final char HORIZONTAL_BORDER = '-';
-    public static final String VERTICAL_BORDER = "|";
-    public static final String CUSTOM_LENGTH_FORMAT = "%%-%ds";
-    public static final String SORTED_LABEL_KEY = "sorted";
-    public static final String ALL_LABEL_KEY = "all";
-    public static final String FILTERED_LABEL_KEY = "filtered";
     public static final String NUMBER_FIELD = "number";
     public static final String MODEL_FIELD = "model";
     public static final String CONSUMPTION_FIELD = "consumption";
