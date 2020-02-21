@@ -1,75 +1,46 @@
 package ua.kpi.carpark.view;
 
+import ua.kpi.carpark.model.car.Car;
+
+import java.util.List;
+import java.util.ResourceBundle;
+
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class View {
 
-    private Translator translator = new Translator();
+    private ResourceBundle bundle;
+    private Formatter formatter;
 
-    public void setLanguage(String language) {
-        translator.setLanguage(language);
+    public View(Formatter formatter) {
+        this.formatter = formatter;
+        setLanguage(Language.ENGLISH);
+        formatter.setBundle(bundle);
     }
 
-    public void printMessage(String... messages) {
-        for (String message : messages) {
-            printLine(message);
-        }
+    public void setLanguage(Language language) {
+        bundle = ResourceBundle.getBundle(ViewConstants.BUNDLE_NAME,
+                                          language.getLocale());
+        formatter.setBundle(bundle);
     }
 
-    private void printLine(String line) {
-        System.out.println(line);
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void printTranslatedMessage(String key) {
+        printMessage(bundle.getString(key));
     }
 
     public void printLanguageMenu() {
-        for (String message : Constants.languageMenu) {
-            printMessage(message);
+        for (Language language : Language.values()) {
+            printMessage(language.getMessage());
         }
     }
 
-    public void printMenu() {
-        for (String key : Constants.menuKeys) {
-            printMessage(getMenuMessage(key));
-        }
-    }
-
-    private String getMenuMessage(String key) {
-        return translator.getMenuMessage(key);
-    }
-
-    public String getHeaderField(String key) {
-        return translator.getHeaderField(key);
-    }
-
-    public void printInputMessage(int bottom, int top) {
-        String format = translator.getInputMessage(Constants.INPUT_OPERATION_KEY);
-        printMessage(String.format(format, bottom, top));
-    }
-
-    public void printWrongInputMessage() {
-        printMessage(translator.getInputMessage(Constants.WRONG_INPUT_KEY));
-    }
-
-    public void printInputTopLimitMessage() {
-        printMessage(translator.getInputMessage(Constants.TOP_LIMIT_KEY));
-    }
-
-    public void printWrongTopLimitMessage(int bottomLimit) {
-        String format = translator.getInputMessage(Constants.WRONG_TOP_LIMIT_KEY);
-        printMessage(String.format(format, bottomLimit));
-    }
-
-    public void printInputBottomLimitMessage() {
-        printMessage(translator.getInputMessage(Constants.BOTTOM_LIMIT_KEY));
-    }
-
-    public String getLabel(String key) {
-        return translator.getLabel(key);
-    }
-
-    public void printTotalPrice(int price) {
-        String format = getLabel(Constants.TOTAL_PRICE_KEY);
-        printMessage(String.format(format, price));
-    }
-
-    public int getLength(String field) {
-        return translator.getLength(field);
+    public void printCarsTable(List<Car> cars) {
+        printMessage(formatter.formatHeader());
+        printMessage(formatter.formatBody(cars));
     }
 }

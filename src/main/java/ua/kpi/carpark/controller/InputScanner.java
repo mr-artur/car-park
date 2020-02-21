@@ -1,9 +1,14 @@
 package ua.kpi.carpark.controller;
 
+import ua.kpi.carpark.view.Language;
 import ua.kpi.carpark.view.View;
+import ua.kpi.carpark.view.ViewConstants;
 
 import java.util.Scanner;
 
+/**
+ * Created by Artur Morozov on 2020-02-16
+ */
 public class InputScanner {
 
     private final View view;
@@ -12,86 +17,112 @@ public class InputScanner {
         this.view = view;
     }
 
+    /**
+     * Forces user to input code of language
+     *
+     * @param scanner scanner to read user's input
+     * @return code of chosen language
+     */
     public int selectLanguage(Scanner scanner) {
-        int languageCode;
+        int code;
 
         view.printLanguageMenu();
-        view.printInputMessage(Constants.MIN_LANGUAGE_CODE,
-                Constants.MAX_LANGUAGE_CODE);
-        do {
-            languageCode = inputIntValue(scanner);
-            if (isIncorrectLanguageCode(languageCode)) {
-                view.printWrongInputMessage();
+        while (true) {
+            code = inputIntValue(scanner);
+            if (isCorrectLanguageCode(code)) {
+                break;
             }
-        } while (isIncorrectLanguageCode(languageCode));
-        return languageCode;
-    }
-
-    private boolean isIncorrectLanguageCode(int languageCode) {
-        return (languageCode < Constants.MIN_LANGUAGE_CODE)
-                || (languageCode > Constants.MAX_LANGUAGE_CODE);
+            view.printTranslatedMessage(ViewConstants.WRONG_INPUT);
+        }
+        return code;
     }
 
     private int inputIntValue(Scanner scanner) {
         while (!scanner.hasNextInt()) {
-            view.printWrongInputMessage();
+            view.printTranslatedMessage(ViewConstants.WRONG_INPUT);
             scanner.next();
         }
         return scanner.nextInt();
     }
 
+    private boolean isCorrectLanguageCode(int code) {
+        return (code >= Language.MIN_CODE)
+                || (code <= Language.MAX_CODE);
+    }
+
+    /**
+     * Forces user to input code of operation
+     *
+     * @param scanner scanner to read user's input
+     * @return code of operation
+     */
     public int selectOperation(Scanner scanner) {
         int operation;
 
-        view.printMenu();
-        view.printInputMessage(Constants.MIN_OPERATION_CODE,
-                Constants.MAX_OPERATION_CODE);
-        do {
+        view.printTranslatedMessage(ViewConstants.MENU);
+        view.printTranslatedMessage(ViewConstants.INPUT_OPERATION);
+        while (true) {
             operation = inputIntValue(scanner);
-            if (isIncorrect(operation)) {
-                view.printWrongInputMessage();
+            if (isCorrect(operation)) {
+                break;
             }
-        } while (isIncorrect(operation));
+            view.printTranslatedMessage(ViewConstants.WRONG_INPUT);
+        }
         return operation;
     }
 
-    private boolean isIncorrect(int operation) {
-        return (operation < Constants.MIN_OPERATION_CODE)
-                || (operation > Constants.MAX_OPERATION_CODE);
+    private boolean isCorrect(int operation) {
+        return (operation >= Constants.MIN_OPERATION_CODE)
+                && (operation <= Constants.MAX_OPERATION_CODE);
     }
 
+    /**
+     * Forces user to input bottom limit
+     *
+     * @param scanner scanner to read user's input
+     * @return bottom limit
+     */
     public int inputBottomLimit(Scanner scanner) {
-        view.printInputBottomLimitMessage();
+        view.printTranslatedMessage(ViewConstants.BOTTOM_LIMIT);
         return inputLimit(scanner);
-    }
-
-    public int inputTopLimit(Scanner scanner, int bottomLimit) {
-        int topLimit;
-
-        view.printInputTopLimitMessage();
-        do {
-            topLimit = inputLimit(scanner);
-            if (topLimit < bottomLimit) {
-                view.printWrongTopLimitMessage(bottomLimit);
-                view.printInputTopLimitMessage();
-            }
-        } while (topLimit < bottomLimit);
-        return topLimit;
     }
 
     private int inputLimit(Scanner scanner) {
         int limit;
 
-        do {
+        while (true) {
             limit = inputIntValue(scanner);
-            if (isNegative(limit)) {
-                view.printWrongInputMessage();
+            if (NotLessThanZero(limit)) {
+                break;
             }
-        } while (isNegative(limit));
+            view.printTranslatedMessage(ViewConstants.WRONG_INPUT);
+        }
         return limit;
     }
 
-    private boolean isNegative(int limit) {
-        return limit < 0;
+    /**
+     * Forces user to input top limit
+     *
+     * @param scanner     scanner to read user's input
+     * @param bottomLimit bottom limit for checking top limit's correctness
+     * @return top limit
+     */
+    public int inputTopLimit(Scanner scanner, int bottomLimit) {
+        int topLimit;
+
+        view.printTranslatedMessage(ViewConstants.TOP_LIMIT);
+        while (true) {
+            topLimit = inputLimit(scanner);
+            if (topLimit >= bottomLimit) {
+                break;
+            }
+            view.printTranslatedMessage(ViewConstants.WRONG_TOP_LIMIT);
+            view.printTranslatedMessage(ViewConstants.TOP_LIMIT);
+        }
+        return topLimit;
+    }
+
+    private boolean NotLessThanZero(int limit) {
+        return limit >= 0;
     }
 }
