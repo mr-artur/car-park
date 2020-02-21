@@ -3,6 +3,7 @@ package ua.kpi.carpark.view;
 import ua.kpi.carpark.model.car.Car;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -45,8 +46,8 @@ public class Formatter {
 
     private String formatLine(Integer number, Car car, List<Integer> lengths) {
         StringJoiner joiner = new StringJoiner(DELIMITER, DELIMITER, DELIMITER);
-        BigDecimal fuelCost = car.calculateFuelCost(100).setScale(2);
-        BigDecimal tariff = car.calculateTariffCost(1).setScale(2);
+        BigDecimal fuelCost = car.calculateFuelCost(100).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal tariff = car.calculateTariffCost(1).setScale(1);
 
         joiner.add(formatCell(lengths.get(0), number.toString()));
         joiner.add(formatCell(lengths.get(1), car.getModel()));

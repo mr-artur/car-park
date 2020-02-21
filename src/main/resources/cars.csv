@@ -1,12 +1,20 @@
-Type,Model,Fuel consumption,Price,Max speed
+Type,Consumption per km,Fuel tariff,Model,Price,Max speed,Comfort level
 petrol,0.14,1.05,Mercedes Sprinter,30000,200,business
-electric,0.16,1.30,Hundai Starex,10000,150,comfort
-electric,0.17,1.25,Renault Trafic,17000,160,comfort
-electric,0.2,1.27,Volkswagen E-GOLF,16000,210,comfort
-electric,0.15,1.25,Mercedes V250E,20000,180,comfort
-electric,0.17,1.25,Fiat500E,10000,150,economy
-electric,0.2,1.30,TESLA MODEL S 75D,50000,200,business
-electric,0.22,1.25,Tesla Model S P90DL,80000,200,business
-electric,0.15,1.28,Nissan LEAF S,13000,160,economy
-electric,0.16,1.25,Nissan LEAF SV,16000,165,comfort
-electric,0.2,1.25,Gazelle Electro,15000,170,universal
+petrol,0.15,1.02,Fiat Ducato 18,10000,150,economy
+petrol,0.16,1.04,Mitsubishi LancerX,12000,150,standard
+petrol,0.15,1.07,Mitsubishi LancerX,15000,150,comfort
+petrol,0.14,1.1,Mitsubishi LancerX,16000,150,comfort
+petrol,0.15,1.02,Mitsubishi Lancer9,25000,150,comfort
+petrol,0.18,1.03,Daewoo Sens,12000,150,standard
+petrol,0.17,1.05,Daewoo Sens,11000,150,economy
+petrol,0.17,1.07,ZAZ Slavuta,1000,170,economy
+electric,0.16,0.52,Hundai Starex,10000,150,comfort
+electric,0.17,0.57,Renault Trafic,17000,160,comfort
+electric,0.2,0.56,Volkswagen E-GOLF,16000,210,standard
+electric,0.15,0.62,Mercedes V250E,20000,180,comfort
+electric,0.17,0.55,Fiat500E,10000,150,economy
+electric,0.2,0.56,TESLA MODEL S 75D,50000,200,business
+electric,0.22,0.57,Tesla Model S P90DL,80000,200,business
+electric,0.15,0.58,Nissan LEAF S,13000,160,economy
+electric,0.16,0.59,Nissan LEAF SV,16000,165,standard
+electric,0.2,0.50,Gazelle Electro,15000,170,universal

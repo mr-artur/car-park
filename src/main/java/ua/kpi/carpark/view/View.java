@@ -7,7 +7,7 @@ import java.util.*;
 public class View {
 
     public static final String TOP_LIMIT = "input.top.limit";
-    public static final String WRONG_TOP_LIMIT = "wrong.top.limit";
+    public static final String WRONG_TOP_LIMIT = "input.wrong.top.limit";
     public static final String BOTTOM_LIMIT = "input.bottom.limit";
     public static final String WRONG_INPUT = "input.wrong";
     public static final String INPUT_OPERATION= "input.operation";

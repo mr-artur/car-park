@@ -6,6 +6,9 @@ public enum Language {
     ENGLISH("To choose English language, enter '1'", "en", 1),
     RUSSIAN("Чтобы выбрать русский язык, введите '2'", "ru", 2);
 
+    public static final int MIN_CODE = ENGLISH.getCode();
+    public static final int MAX_CODE = RUSSIAN.getCode();
+
     private final String message;
     private final String shortCode;
     private final int code;
